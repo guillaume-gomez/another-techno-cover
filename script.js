@@ -1,18 +1,28 @@
-var MAX_HEIGHT = 100;
+var fileUpload = document.getElementById('fileUpload');
+var canvas  = document.getElementById('canvas');
+var ctx = canvas.getContext("2d");
 
-function render(src) {
-  var image = new Image();
-  image.onload = function() {
-    var canvas = document.getElementById("myCanvas");
-    if(image.height > MAX_HEIGHT) {
-      image.width *= MAX_HEIGHT / image.height;
-      image.height = MAX_HEIGHT;
-    }
-    var ctx = canvas.getContext("2d");
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    canvas.width = image.width;
-    canvas.height = image.height;
-    ctx.drawImage(image, 0, 0, image.width, image.height);
-  };
-  image.src = src;
+function readImage() {
+  if (this.files && this.files[0]) {
+      var FR= new FileReader();
+      FR.onload = function(e) {
+         var img = new Image();
+         img.src = e.target.result;
+         img.onload = function() {
+           ctx.drawImage(img, 0, 0, 512, 512);
+         };
+      };
+      FR.readAsDataURL(this.files[0]);
+  }
 }
+
+fileUpload.onchange = readImage;
+
+canvas.onclick = function(e) {
+  var x = e.offsetX;
+  var y = e.offsetY;
+  ctx.beginPath();
+  ctx.fillStyle = 'black';
+  ctx.arc(x, y, 5, 0, Math.PI * 2);
+  ctx.fill();
+};
