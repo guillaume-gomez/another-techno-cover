@@ -1,4 +1,10 @@
-var fileUpload = document.getElementById('fileUpload');
+var fileUpload1 = document.getElementById('fileUpload1');
+var fileUpload2 = document.getElementById('fileUpload2');
+var fileUpload3 = document.getElementById('fileUpload3');
+var fileUpload4 = document.getElementById('fileUpload4');
+var fileUpload5 = document.getElementById('fileUpload5');
+var fileUpload6 = document.getElementById('fileUpload6');
+
 var canvas  = document.getElementById('canvas');
 var ctx = canvas.getContext("2d");
 
@@ -16,7 +22,12 @@ function readImage() {
   }
 }
 
-fileUpload.onchange = readImage;
+fileUpload1.onchange = readImage;
+fileUpload2.onchange = readImage;
+fileUpload3.onchange = readImage;
+fileUpload4.onchange = readImage;
+fileUpload5.onchange = readImage;
+fileUpload6.onchange = readImage;
 
 canvas.onclick = function(e) {
   var x = e.offsetX;
