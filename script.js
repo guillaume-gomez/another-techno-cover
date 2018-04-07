@@ -5,6 +5,13 @@ var fileUpload4 = document.getElementById('fileUpload4');
 var fileUpload5 = document.getElementById('fileUpload5');
 var fileUpload6 = document.getElementById('fileUpload6');
 
+var checboxLayer1 = document.getElementById('layer1');
+var checboxLayer2 = document.getElementById('layer2');
+var checboxLayer3 = document.getElementById('layer3');
+var checboxLayer4 = document.getElementById('layer4');
+var checboxLayer5 = document.getElementById('layer5');
+var checboxLayer6 = document.getElementById('layer6');
+
 var canvasRemoved  = document.getElementById('canvas7');
 var currentCanvas = document.getElementById('canvas6');
 var ctxRemoved = canvasRemoved.getContext("2d");
@@ -41,12 +48,27 @@ function readImage(event, index) {
   }
 }
 
+function setCurrentLayer(event, index) {
+  if(event.target.checked) {
+    currentCanvas = document.getElementById('canvas' + index);
+  } else {
+    currentCanvas = document.getElementById('canvas7');
+  }
+}
+
 fileUpload1.onchange = (event) => { readImage(event, 1); };
 fileUpload2.onchange = (event) => { readImage(event, 2); };
 fileUpload3.onchange = (event) => { readImage(event, 3); };
 fileUpload4.onchange = (event) => { readImage(event, 4); };
 fileUpload5.onchange = (event) => { readImage(event, 5); };
 fileUpload6.onchange = (event) => { readImage(event, 6); };
+
+checboxLayer1.onchange = (event) => { setCurrentLayer(event, 1); };
+checboxLayer2.onchange = (event) => { setCurrentLayer(event, 2); };
+checboxLayer3.onchange = (event) => { setCurrentLayer(event, 3); };
+checboxLayer4.onchange = (event) => { setCurrentLayer(event, 4); };
+checboxLayer5.onchange = (event) => { setCurrentLayer(event, 5); };
+checboxLayer6.onchange = (event) => { setCurrentLayer(event, 6); };
 
 function setMousePosition(e) {
     var ev = e || window.event; //Moz || IE
@@ -58,6 +80,10 @@ function setMousePosition(e) {
         mouse.y = ev.clientY -  document.body.scrollTop - canvasRect.top;
     }
 };
+
+function exportAsImage() {
+  // TODO
+}
 
 canvasRemoved.onmousemove = function (e) {
     setMousePosition(e);
@@ -87,4 +113,3 @@ canvasRemoved.onclick = function (e) {
       canvasRemoved.style.cursor = "crosshair";
   }
 }
-
