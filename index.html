@@ -2,6 +2,12 @@
 <head>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
+<style type="text/css">
+  canvas {
+    border: 1px solid #000000;
+    position: absolute;
+}
+</style>
 <html>
   <body>
     <div class="jumbotron jumbotron-fluid">
@@ -12,7 +18,12 @@
     <div class="container">
       <div class="row">
         <div class="col-8">
-          <canvas id="canvas" width="512" height="512" style="border:1px solid #000000;"></canvas>
+          <canvas id="canvas1" width="512" height="512" style="z-index:1"></canvas>
+          <canvas id="canvas2" width="512" height="512" style="z-index:2" ></canvas>
+          <canvas id="canvas3" width="512" height="512" style="z-index:3" ></canvas>
+          <canvas id="canvas4" width="512" height="512" style="z-index:4" ></canvas>
+          <canvas id="canvas5" width="512" height="512" style="z-index:5" ></canvas>
+          <canvas id="canvas6" width="512" height="512" style="z-index:6" ></canvas>
         </div>
         <div class="col-4">
           <div class="form-group">
