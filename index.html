@@ -2,6 +2,7 @@
 <head>
   <title>Techno cover generator</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <style type="text/css">
   canvas {
@@ -29,6 +30,15 @@
           <canvas id="canvas7" width="766" height="766" style="z-index:7" ></canvas>
         </div>
         <div class="col-3">
+          <div class="panel panel-default">
+            <div class="panel-heading">Instructions <i class="fa fa-question-circle"></i></div>
+            <div class="panel-body">
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item">Draw zone to delete layer.</li>
+                <li class="list-group-item">Press escape to reset deleted zone.</li>
+              </ul>
+            </div>
+          </div>
           <div class="form-group">
             <label for="file1">First Layer</label>
             <input type='file' class="form-control-file" id="fileUpload1"/>
