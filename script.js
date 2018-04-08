@@ -99,7 +99,7 @@ canvasRemoved.onmousemove = function (e) {
         rect.startY = (mouse.y - mouse.startY < 0) ? mouse.y : mouse.startY;
         ctxRemoved.clearRect(0, 0, canvasRect.width, canvasRect.height);
         ctxRemoved.fillRect(rect.startX, rect.startY, rect.width, rect.height);
-        ctxRemoved.fillStyle ="#FF0000";
+        ctxRemoved.fillStyle = 'rgba(225,225,225,0.5)';
     }
 }
 
