@@ -43,7 +43,7 @@ function readImage(event, index) {
          var img = new Image();
          img.src = e.target.result;
          img.onload = function() {
-          ctx.drawImage(img, 0, 0, 512, 512);
+          ctx.drawImage(img, 0, 0, 766, 766);
          };
       };
       FR.readAsDataURL(event.target.files[0]);
