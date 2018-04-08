@@ -12,6 +12,8 @@ var checboxLayer4 = document.getElementById('layer4');
 var checboxLayer5 = document.getElementById('layer5');
 var checboxLayer6 = document.getElementById('layer6');
 
+var saveButton = document.getElementById('export-to-png');
+
 var canvasRemoved  = document.getElementById('canvas7');
 var currentCanvas = document.getElementById('canvas6');
 var ctxRemoved = canvasRemoved.getContext("2d");
@@ -56,6 +58,23 @@ function setCurrentLayer(event, index) {
   }
 }
 
+function exportAsImage() {
+  // create a second canvas
+  var destinationCanvas = document.createElement("canvas");
+  destinationCanvas.width = currentCanvas.width;
+  destinationCanvas.height = currentCanvas.height;
+
+  var destCtx = destinationCanvas.getContext('2d');
+  //draw the original canvas onto the destination canvas
+  for(i = 1; i <= 6; ++i) {
+    var canvas = document.getElementById("canvas" + i);
+    destCtx.drawImage(canvas, 0, 0);
+  }
+
+  const image = destinationCanvas.toDataURL("image/png").replace("image/png", "image/octet-stream");
+  window.location.href = image;
+}
+
 fileUpload1.onchange = (event) => { readImage(event, 1); };
 fileUpload2.onchange = (event) => { readImage(event, 2); };
 fileUpload3.onchange = (event) => { readImage(event, 3); };
@@ -70,6 +89,9 @@ checboxLayer4.onchange = (event) => { setCurrentLayer(event, 4); };
 checboxLayer5.onchange = (event) => { setCurrentLayer(event, 5); };
 checboxLayer6.onchange = (event) => { setCurrentLayer(event, 6); };
 
+saveButton.onclick = exportAsImage;
+
+
 function setMousePosition(e) {
     var ev = e || window.event; //Moz || IE
     if (ev.pageX) { //Moz
@@ -81,9 +103,6 @@ function setMousePosition(e) {
     }
 };
 
-function exportAsImage() {
-  // TODO
-}
 
 canvasRemoved.onmousemove = function (e) {
     setMousePosition(e);
