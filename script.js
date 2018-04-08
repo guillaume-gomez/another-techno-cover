@@ -15,7 +15,7 @@ var checboxLayer6 = document.getElementById('layer6');
 var saveButton = document.getElementById('export-to-png');
 
 var canvasRemoved  = document.getElementById('canvas7');
-var currentCanvas = document.getElementById('canvas6');
+var currentCanvas = document.getElementById('canvas1');
 var ctxRemoved = canvasRemoved.getContext("2d");
 var canvasRect = canvasRemoved.getBoundingClientRect();
 
@@ -47,15 +47,14 @@ function readImage(event, index) {
          };
       };
       FR.readAsDataURL(event.target.files[0]);
+    // set current layer
+    currentCanvas = document.getElementById("canvas" + index);
+    document.getElementById("layer" + index).checked = true;
   }
 }
 
 function setCurrentLayer(event, index) {
-  if(event.target.checked) {
-    currentCanvas = document.getElementById('canvas' + index);
-  } else {
-    currentCanvas = document.getElementById('canvas7');
-  }
+  currentCanvas = document.getElementById('canvas' + index);
 }
 
 function exportAsImage() {
@@ -113,7 +112,7 @@ canvasRemoved.onmousemove = function (e) {
         rect.startY = (mouse.y - mouse.startY < 0) ? mouse.y : mouse.startY;
         ctxRemoved.clearRect(0, 0, canvasRect.width, canvasRect.height);
         ctxRemoved.fillRect(rect.startX, rect.startY, rect.width, rect.height);
-        ctxRemoved.fillStyle="#FF0000";
+        ctxRemoved.fillStyle ="#FF0000";
     }
 }
 
@@ -122,7 +121,9 @@ canvasRemoved.onclick = function (e) {
       isErasing = false;
       canvasRemoved.style.cursor = "default";
       var ctx = currentCanvas.getContext("2d");
-      ctx.clearRect(rect.startX, rect.startY, rect.width, rect.height);
+      if (currentCanvas.id !== "canvas1") {
+        ctx.clearRect(rect.startX, rect.startY, rect.width, rect.height);
+      }
       ctxRemoved.clearRect(0, 0, canvasRect.width, canvasRect.height);
   } else {
       mouse.startX = mouse.x;
