@@ -145,3 +145,14 @@ window.onload = () => {
 window.onbeforeunload =  () => {
   init();
 }
+
+document.addEventListener('keydown', function(event) {
+    const key = event.key;
+    if (key === "Escape") {
+      isErasing = false;
+      canvasRemoved.style.cursor = "default";
+      ctxRemoved.clearRect(0, 0, canvasRect.width, canvasRect.height);
+      rect = { startX: 0, startY: 0, width: 0, height: 0 };
+      mouse = { startX: 0, startY: 0, x: 0, y: 0 };
+    }
+});
