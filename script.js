@@ -1,3 +1,4 @@
+// attributes
 var fileUpload1 = document.getElementById('fileUpload1');
 var fileUpload2 = document.getElementById('fileUpload2');
 var fileUpload3 = document.getElementById('fileUpload3');
@@ -33,6 +34,10 @@ var rect = {
 }
 
 var isErasing = false;
+
+function init() {
+  window.scrollTo(0, 0);
+}
 
 function readImage(event, index) {
   if (event.target.files && event.target.files[0]) {
@@ -74,34 +79,16 @@ function exportAsImage() {
   window.location.href = image;
 }
 
-fileUpload1.onchange = (event) => { readImage(event, 1); };
-fileUpload2.onchange = (event) => { readImage(event, 2); };
-fileUpload3.onchange = (event) => { readImage(event, 3); };
-fileUpload4.onchange = (event) => { readImage(event, 4); };
-fileUpload5.onchange = (event) => { readImage(event, 5); };
-fileUpload6.onchange = (event) => { readImage(event, 6); };
-
-checboxLayer1.onchange = (event) => { setCurrentLayer(event, 1); };
-checboxLayer2.onchange = (event) => { setCurrentLayer(event, 2); };
-checboxLayer3.onchange = (event) => { setCurrentLayer(event, 3); };
-checboxLayer4.onchange = (event) => { setCurrentLayer(event, 4); };
-checboxLayer5.onchange = (event) => { setCurrentLayer(event, 5); };
-checboxLayer6.onchange = (event) => { setCurrentLayer(event, 6); };
-
-saveButton.onclick = exportAsImage;
-
-
 function setMousePosition(e) {
     var ev = e || window.event; //Moz || IE
     if (ev.pageX) { //Moz
         mouse.x = ev.pageX - canvasRect.left;
-        mouse.y = ev.pageY - window.pageYOffset - canvasRect.top;
+        mouse.y = ev.pageY - canvasRect.top;
     } else if (ev.clientX) { //IE
         mouse.x = ev.clientX - canvasRect.left;
         mouse.y = ev.clientY -  document.body.scrollTop - canvasRect.top;
     }
 };
-
 
 canvasRemoved.onmousemove = function (e) {
     setMousePosition(e);
@@ -117,6 +104,7 @@ canvasRemoved.onmousemove = function (e) {
 }
 
 canvasRemoved.onclick = function (e) {
+  setMousePosition(e);
   if (isErasing) {
       isErasing = false;
       canvasRemoved.style.cursor = "default";
@@ -125,11 +113,35 @@ canvasRemoved.onclick = function (e) {
         ctx.clearRect(rect.startX, rect.startY, rect.width, rect.height);
       }
       ctxRemoved.clearRect(0, 0, canvasRect.width, canvasRect.height);
+      rect = { startX: 0, startY: 0, width: 0, height: 0 };
+      mouse = { startX: 0, startY: 0, x: 0, y: 0 };
   } else {
       mouse.startX = mouse.x;
       mouse.startY = mouse.y;
       isErasing = true;
-      rect = { startX: 0, startY: 0, width: 0, height: 0}
+      rect = { startX: 0, startY: 0, width: 0, height: 0};
       canvasRemoved.style.cursor = "crosshair";
   }
+}
+
+window.onload = () => {
+  fileUpload1.onchange = (event) => { readImage(event, 1); };
+  fileUpload2.onchange = (event) => { readImage(event, 2); };
+  fileUpload3.onchange = (event) => { readImage(event, 3); };
+  fileUpload4.onchange = (event) => { readImage(event, 4); };
+  fileUpload5.onchange = (event) => { readImage(event, 5); };
+  fileUpload6.onchange = (event) => { readImage(event, 6); };
+
+  checboxLayer1.onchange = (event) => { setCurrentLayer(event, 1); };
+  checboxLayer2.onchange = (event) => { setCurrentLayer(event, 2); };
+  checboxLayer3.onchange = (event) => { setCurrentLayer(event, 3); };
+  checboxLayer4.onchange = (event) => { setCurrentLayer(event, 4); };
+  checboxLayer5.onchange = (event) => { setCurrentLayer(event, 5); };
+  checboxLayer6.onchange = (event) => { setCurrentLayer(event, 6); };
+
+  saveButton.onclick = exportAsImage;
+}
+
+window.onbeforeunload =  () => {
+  init();
 }
