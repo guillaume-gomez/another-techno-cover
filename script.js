@@ -15,8 +15,8 @@ var checboxLayer6 = document.getElementById('layer6');
 
 var saveButton = document.getElementById('export-to-png');
 
-var canvasRemoved  = document.getElementById('canvas7');
-var currentCanvas = document.getElementById('canvas1');
+var canvasRemoved  = document.getElementById('canvas9');
+var currentCanvas = document.getElementById('canvas7');
 var ctxRemoved = canvasRemoved.getContext("2d");
 var canvasRect = canvasRemoved.getBoundingClientRect();
 
@@ -70,7 +70,7 @@ function exportAsImage() {
 
   var destCtx = destinationCanvas.getContext('2d');
   //draw the original canvas onto the destination canvas
-  for(i = 1; i <= 6; ++i) {
+  for(i = 1; i <= 8; ++i) {
     var canvas = document.getElementById("canvas" + i);
     destCtx.drawImage(canvas, 0, 0);
   }
@@ -88,7 +88,14 @@ function setMousePosition(e) {
         mouse.x = ev.clientX - canvasRect.left;
         mouse.y = ev.clientY -  document.body.scrollTop - canvasRect.top;
     }
-};
+}
+
+function writeText(canvasId, string, x, y , size) {
+  let canvas = document.getElementById(`canvas${canvasId}`);
+  let ctx = canvas.getContext("2d");
+  ctx.font = `${size}px Arial`;
+  ctx.fillText(string,x , y);
+}
 
 canvasRemoved.onmousemove = function (e) {
     setMousePosition(e);
@@ -139,11 +146,14 @@ window.onload = () => {
   checboxLayer5.onchange = (event) => { setCurrentLayer(event, 5); };
   checboxLayer6.onchange = (event) => { setCurrentLayer(event, 6); };
 
+  //writeText("7", "Hello word", 200, 200, 50);
+  //writeText("8", "Hello word", 10, 50, 50);
   saveButton.onclick = exportAsImage;
 }
 
 window.onbeforeunload =  () => {
   init();
+
 }
 
 document.addEventListener('keydown', function(event) {
