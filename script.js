@@ -20,6 +20,9 @@ var currentCanvas = document.getElementById('canvas7');
 var ctxRemoved = canvasRemoved.getContext("2d");
 var canvasRect = canvasRemoved.getBoundingClientRect();
 
+var albumTitle = document.getElementById("album-title");
+var bandName = document.getElementById("band-name");
+
 var mouse = {
   x: 0,
   y: 0,
@@ -93,9 +96,20 @@ function setMousePosition(e) {
 function writeText(canvasId, string, x, y , size) {
   let canvas = document.getElementById(`canvas${canvasId}`);
   let ctx = canvas.getContext("2d");
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
   ctx.font = `${size}px Arial`;
   ctx.fillText(string,x , y);
 }
+
+function writeAlbumName(string, x, y, size) {
+  writeText('8', string, x, y, size);
+}
+
+function writeBandName(string, x, y, size) {
+  writeText('9', string, x, y, size);
+}
+
+
 
 canvasRemoved.onmousemove = function (e) {
     setMousePosition(e);
@@ -129,6 +143,18 @@ canvasRemoved.onclick = function (e) {
       rect = { startX: 0, startY: 0, width: 0, height: 0};
       canvasRemoved.style.cursor = "crosshair";
   }
+}
+
+albumTitle.onchange = (event) => {
+  const x = document.getElementById("album-title-x");
+  const y = document.getElementById("album-title-y");
+  writeAlbumName(event.target.value, x.value, y.value, 50);
+}
+
+bandName.onchange = (event) => {
+  const x = document.getElementById("band-name-x");
+  const y = document.getElementById("band-name-y");
+  writeBandName(event.target.value, x.value, y.value, 50);
 }
 
 window.onload = () => {
