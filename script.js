@@ -21,7 +21,12 @@ var ctxRemoved = canvasRemoved.getContext("2d");
 var canvasRect = canvasRemoved.getBoundingClientRect();
 
 var albumTitle = document.getElementById("album-title");
+var albumTitleX = document.getElementById("album-title-x");
+var albumTitleY = document.getElementById("album-title-y");
+
 var bandName = document.getElementById("band-name");
+var bandNameX = document.getElementById("band-name-x");
+var bandNameY = document.getElementById("band-name-y");
 
 var mouse = {
   x: 0,
@@ -146,15 +151,35 @@ canvasRemoved.onclick = function (e) {
 }
 
 albumTitle.onchange = (event) => {
-  const x = document.getElementById("album-title-x");
-  const y = document.getElementById("album-title-y");
+  const x = albumTitleX;
+  const y = albumTitleY;
   writeAlbumName(event.target.value, x.value, y.value, 50);
 }
 
+albumTitleX.onchange = (event) => {
+  const y = albumTitleY;
+  writeAlbumName(albumTitle.value, event.target.value, y.value, 50);
+}
+
+albumTitleY.onchange = (event) => {
+  const x = albumTitleX;
+  writeAlbumName(albumTitle.value, x.value,  event.target.value, 50);
+}
+
 bandName.onchange = (event) => {
-  const x = document.getElementById("band-name-x");
-  const y = document.getElementById("band-name-y");
+  const x = bandNameX;
+  const y = bandNameY;
   writeBandName(event.target.value, x.value, y.value, 50);
+}
+
+bandNameX.onchange = (event) => {
+  const y = bandNameY;
+  writeBandName(bandName.value, event.target.value, y.value, 50);
+}
+
+bandNameY.onchange = (event) => {
+  const x = bandNameX;
+  writeBandName(bandName.value, x.value, event.target.value, 50);
 }
 
 window.onload = () => {
