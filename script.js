@@ -23,10 +23,13 @@ var canvasRect = canvasRemoved.getBoundingClientRect();
 var albumTitle = document.getElementById("album-title");
 var albumTitleX = document.getElementById("album-title-x");
 var albumTitleY = document.getElementById("album-title-y");
+var albumTitleFontSize = document.getElementById("album-title-font-size");
 
 var bandName = document.getElementById("band-name");
 var bandNameX = document.getElementById("band-name-x");
 var bandNameY = document.getElementById("band-name-y");
+var bandNameFontSize = document.getElementById("band-name-font-size");
+
 
 var mouse = {
   x: 0,
@@ -102,16 +105,17 @@ function writeText(canvasId, string, x, y , size) {
   let canvas = document.getElementById(`canvas${canvasId}`);
   let ctx = canvas.getContext("2d");
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-  ctx.font = `${size}px Arial`;
+  ctx.font = `${size}px sans-serif`;
+  ctx.fillStyle = '#000';
   ctx.fillText(string,x , y);
 }
 
 function writeAlbumName(string, x, y, size) {
-  writeText('8', string, x, y, size);
+  writeText('7', string, x, y, size);
 }
 
 function writeBandName(string, x, y, size) {
-  writeText('9', string, x, y, size);
+  writeText('8', string, x, y, size);
 }
 
 
@@ -153,33 +157,42 @@ canvasRemoved.onclick = function (e) {
 albumTitle.onchange = (event) => {
   const x = albumTitleX;
   const y = albumTitleY;
-  writeAlbumName(event.target.value, x.value, y.value, 50);
+  writeAlbumName(event.target.value, x.value, y.value, albumTitleFontSize.value);
 }
 
 albumTitleX.onchange = (event) => {
   const y = albumTitleY;
-  writeAlbumName(albumTitle.value, event.target.value, y.value, 50);
+  writeAlbumName(albumTitle.value, event.target.value, y.value, albumTitleFontSize.value);
 }
 
 albumTitleY.onchange = (event) => {
   const x = albumTitleX;
-  writeAlbumName(albumTitle.value, x.value,  event.target.value, 50);
+  writeAlbumName(albumTitle.value, x.value,  event.target.value, albumTitleFontSize.value);
+}
+
+albumTitleFontSize.onchange = (event) => {
+  writeAlbumName(albumTitle.value, albumTitleX.value, albumTitleY.value, event.target.value);
 }
 
 bandName.onchange = (event) => {
   const x = bandNameX;
   const y = bandNameY;
-  writeBandName(event.target.value, x.value, y.value, 50);
+  writeBandName(event.target.value, x.value, y.value, bandNameFontSize.value);
 }
 
 bandNameX.onchange = (event) => {
   const y = bandNameY;
-  writeBandName(bandName.value, event.target.value, y.value, 50);
+  writeBandName(bandName.value, event.target.value, y.value, bandNameFontSize.value);
 }
 
 bandNameY.onchange = (event) => {
   const x = bandNameX;
-  writeBandName(bandName.value, x.value, event.target.value, 50);
+  writeBandName(bandName.value, x.value, event.target.value, bandNameFontSize.value);
+}
+
+
+bandNameFontSize.onchange = (event) => {
+  writeBandName(bandName.value, bandNameX.value, bandNameY.value, event.target.value);
 }
 
 window.onload = () => {
@@ -197,8 +210,6 @@ window.onload = () => {
   checboxLayer5.onchange = (event) => { setCurrentLayer(event, 5); };
   checboxLayer6.onchange = (event) => { setCurrentLayer(event, 6); };
 
-  //writeText("7", "Hello word", 200, 200, 50);
-  //writeText("8", "Hello word", 10, 50, 50);
   saveButton.onclick = exportAsImage;
 }
 
