@@ -24,11 +24,13 @@ var albumTitle = document.getElementById("album-title");
 var albumTitleX = document.getElementById("album-title-x");
 var albumTitleY = document.getElementById("album-title-y");
 var albumTitleFontSize = document.getElementById("album-title-font-size");
+var albumTitleColor = $("#album-title-color");
 
 var bandName = document.getElementById("band-name");
 var bandNameX = document.getElementById("band-name-x");
 var bandNameY = document.getElementById("band-name-y");
 var bandNameFontSize = document.getElementById("band-name-font-size");
+var bandNameColor = $("#band-name-color");
 
 
 var mouse = {
@@ -101,21 +103,21 @@ function setMousePosition(e) {
     }
 }
 
-function writeText(canvasId, string, x, y , size) {
+function writeText(canvasId, string, x, y , size, color = '#000') {
   let canvas = document.getElementById(`canvas${canvasId}`);
   let ctx = canvas.getContext("2d");
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   ctx.font = `${size}px sans-serif`;
-  ctx.fillStyle = '#000';
+  ctx.fillStyle = color;
   ctx.fillText(string,x , y);
 }
 
-function writeAlbumName(string, x, y, size) {
-  writeText('7', string, x, y, size);
+function writeAlbumName(string, x, y, size, color) {
+  writeText('7', string, x, y, size, color);
 }
 
-function writeBandName(string, x, y, size) {
-  writeText('8', string, x, y, size);
+function writeBandName(string, x, y, size, color) {
+  writeText('8', string, x, y, size, color);
 }
 
 
@@ -157,43 +159,52 @@ canvasRemoved.onclick = function (e) {
 albumTitle.onchange = (event) => {
   const x = albumTitleX;
   const y = albumTitleY;
-  writeAlbumName(event.target.value, x.value, y.value, albumTitleFontSize.value);
+  writeAlbumName(event.target.value, x.value, y.value, albumTitleFontSize.value, albumTitleColor.val());
 }
 
 albumTitleX.onchange = (event) => {
   const y = albumTitleY;
-  writeAlbumName(albumTitle.value, event.target.value, y.value, albumTitleFontSize.value);
+  writeAlbumName(albumTitle.value, event.target.value, y.value, albumTitleFontSize.value, albumTitleColor.val());
 }
 
 albumTitleY.onchange = (event) => {
   const x = albumTitleX;
-  writeAlbumName(albumTitle.value, x.value,  event.target.value, albumTitleFontSize.value);
+  writeAlbumName(albumTitle.value, x.value,  event.target.value, albumTitleFontSize.value, albumTitleColor());
 }
 
 albumTitleFontSize.onchange = (event) => {
-  writeAlbumName(albumTitle.value, albumTitleX.value, albumTitleY.value, event.target.value);
+  writeAlbumName(albumTitle.value, albumTitleX.value, albumTitleY.value, event.target.value, albumTitleColor.val());
 }
+
+albumTitleColor.change( function() {
+  const newColor = `#${$(this).val()}`;
+  writeAlbumName(albumTitle.value, albumTitleX.value, albumTitleY.value, albumTitleFontSize.value, newColor);
+});
 
 bandName.onchange = (event) => {
   const x = bandNameX;
   const y = bandNameY;
-  writeBandName(event.target.value, x.value, y.value, bandNameFontSize.value);
+  writeBandName(event.target.value, x.value, y.value, bandNameFontSize.value, bandNameColor.val());
 }
 
 bandNameX.onchange = (event) => {
   const y = bandNameY;
-  writeBandName(bandName.value, event.target.value, y.value, bandNameFontSize.value);
+  writeBandName(bandName.value, event.target.value, y.value, bandNameFontSize.value, bandNameColor.val());
 }
 
 bandNameY.onchange = (event) => {
   const x = bandNameX;
-  writeBandName(bandName.value, x.value, event.target.value, bandNameFontSize.value);
+  writeBandName(bandName.value, x.value, event.target.value, bandNameFontSize.value, bandNameColor.val());
 }
-
 
 bandNameFontSize.onchange = (event) => {
-  writeBandName(bandName.value, bandNameX.value, bandNameY.value, event.target.value);
+  writeBandName(bandName.value, bandNameX.value, bandNameY.value, event.target.value, bandNameColor.val());
 }
+
+ bandNameColor.change( function() {
+  const newColor = `#${$(this).val()}`;
+  writeBandName(bandName.value, bandNameX.value, bandNameY.value, bandNameFontSize.value, newColor);
+});
 
 window.onload = () => {
   fileUpload1.onchange = (event) => { readImage(event, 1); };
