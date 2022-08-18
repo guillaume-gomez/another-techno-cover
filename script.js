@@ -1,20 +1,4 @@
 // attributes
-var fileUpload1 = document.getElementById('fileUpload1');
-var fileUpload2 = document.getElementById('fileUpload2');
-var fileUpload3 = document.getElementById('fileUpload3');
-var fileUpload4 = document.getElementById('fileUpload4');
-var fileUpload5 = document.getElementById('fileUpload5');
-var fileUpload6 = document.getElementById('fileUpload6');
-
-var checboxLayer1 = document.getElementById('layer1');
-var checboxLayer2 = document.getElementById('layer2');
-var checboxLayer3 = document.getElementById('layer3');
-var checboxLayer4 = document.getElementById('layer4');
-var checboxLayer5 = document.getElementById('layer5');
-var checboxLayer6 = document.getElementById('layer6');
-
-var saveButton = document.getElementById('export-to-png');
-
 var canvasRemoved  = document.getElementById('canvas9');
 var currentCanvas = document.getElementById('canvas7');
 var ctxRemoved = canvasRemoved.getContext("2d");
@@ -207,6 +191,23 @@ bandNameFontSize.onchange = (event) => {
 });
 
 window.onload = () => {
+  const fileUpload1 = document.getElementById('fileUpload1');
+  const fileUpload2 = document.getElementById('fileUpload2');
+  const fileUpload3 = document.getElementById('fileUpload3');
+  const fileUpload4 = document.getElementById('fileUpload4');
+  const fileUpload5 = document.getElementById('fileUpload5');
+  const fileUpload6 = document.getElementById('fileUpload6');
+
+  const checboxLayer1 = document.getElementById('layer1');
+  const checboxLayer2 = document.getElementById('layer2');
+  const checboxLayer3 = document.getElementById('layer3');
+  const checboxLayer4 = document.getElementById('layer4');
+  const checboxLayer5 = document.getElementById('layer5');
+  const checboxLayer6 = document.getElementById('layer6');
+
+  const saveButton = document.getElementById('export-to-png');
+
+
   fileUpload1.onchange = (event) => { readImage(event, 1); };
   fileUpload2.onchange = (event) => { readImage(event, 2); };
   fileUpload3.onchange = (event) => { readImage(event, 3); };
