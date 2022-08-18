@@ -10,13 +10,6 @@ var albumTitleY = document.getElementById("album-title-y");
 var albumTitleFontSize = document.getElementById("album-title-font-size");
 var albumTitleColor = $("#album-title-color");
 
-var bandName = document.getElementById("band-name");
-var bandNameX = document.getElementById("band-name-x");
-var bandNameY = document.getElementById("band-name-y");
-var bandNameFontSize = document.getElementById("band-name-font-size");
-var bandNameColor = $("#band-name-color");
-
-
 var mouse = {
   x: 0,
   y: 0,
@@ -104,92 +97,6 @@ function writeBandName(string, x, y, size, color) {
   writeText('8', string, x, y, size, color);
 }
 
-
-
-canvasRemoved.onmousemove = function (e) {
-    setMousePosition(e);
-    if (isErasing) {
-        rect.width = Math.abs(mouse.x - mouse.startX);
-        rect.height = Math.abs(mouse.y - mouse.startY);
-        rect.startX = (mouse.x - mouse.startX < 0) ? mouse.x : mouse.startX;
-        rect.startY = (mouse.y - mouse.startY < 0) ? mouse.y : mouse.startY;
-        ctxRemoved.clearRect(0, 0, canvasRect.width, canvasRect.height);
-        ctxRemoved.fillRect(rect.startX, rect.startY, rect.width, rect.height);
-        ctxRemoved.fillStyle = 'rgba(225,225,225,0.5)';
-    }
-}
-
-canvasRemoved.onclick = function (e) {
-  setMousePosition(e);
-  if (isErasing) {
-      isErasing = false;
-      canvasRemoved.style.cursor = "default";
-      var ctx = currentCanvas.getContext("2d");
-      if (currentCanvas.id !== "canvas1") {
-        ctx.clearRect(rect.startX, rect.startY, rect.width, rect.height);
-      }
-      ctxRemoved.clearRect(0, 0, canvasRect.width, canvasRect.height);
-      rect = { startX: 0, startY: 0, width: 0, height: 0 };
-      mouse = { startX: 0, startY: 0, x: 0, y: 0 };
-  } else {
-      mouse.startX = mouse.x;
-      mouse.startY = mouse.y;
-      isErasing = true;
-      rect = { startX: 0, startY: 0, width: 0, height: 0};
-      canvasRemoved.style.cursor = "crosshair";
-  }
-}
-
-albumTitle.onchange = (event) => {
-  const x = albumTitleX;
-  const y = albumTitleY;
-  writeAlbumName(event.target.value, x.value, y.value, albumTitleFontSize.value, albumTitleColor.val());
-}
-
-albumTitleX.onchange = (event) => {
-  const y = albumTitleY;
-  writeAlbumName(albumTitle.value, event.target.value, y.value, albumTitleFontSize.value, albumTitleColor.val());
-}
-
-albumTitleY.onchange = (event) => {
-  const x = albumTitleX;
-  writeAlbumName(albumTitle.value, x.value,  event.target.value, albumTitleFontSize.value, albumTitleColor());
-}
-
-albumTitleFontSize.onchange = (event) => {
-  writeAlbumName(albumTitle.value, albumTitleX.value, albumTitleY.value, event.target.value, albumTitleColor.val());
-}
-
-albumTitleColor.change( function() {
-  const newColor = `#${$(this).val()}`;
-  writeAlbumName(albumTitle.value, albumTitleX.value, albumTitleY.value, albumTitleFontSize.value, newColor);
-});
-
-bandName.onchange = (event) => {
-  const x = bandNameX;
-  const y = bandNameY;
-  writeBandName(event.target.value, x.value, y.value, bandNameFontSize.value, bandNameColor.val());
-}
-
-bandNameX.onchange = (event) => {
-  const y = bandNameY;
-  writeBandName(bandName.value, event.target.value, y.value, bandNameFontSize.value, bandNameColor.val());
-}
-
-bandNameY.onchange = (event) => {
-  const x = bandNameX;
-  writeBandName(bandName.value, x.value, event.target.value, bandNameFontSize.value, bandNameColor.val());
-}
-
-bandNameFontSize.onchange = (event) => {
-  writeBandName(bandName.value, bandNameX.value, bandNameY.value, event.target.value, bandNameColor.val());
-}
-
- bandNameColor.change( function() {
-  const newColor = `#${$(this).val()}`;
-  writeBandName(bandName.value, bandNameX.value, bandNameY.value, bandNameFontSize.value, newColor);
-});
-
 window.onload = () => {
   const fileUpload1 = document.getElementById('fileUpload1');
   const fileUpload2 = document.getElementById('fileUpload2');
@@ -204,6 +111,13 @@ window.onload = () => {
   const checboxLayer4 = document.getElementById('layer4');
   const checboxLayer5 = document.getElementById('layer5');
   const checboxLayer6 = document.getElementById('layer6');
+
+  const bandName = document.getElementById("band-name");
+  const bandNameX = document.getElementById("band-name-x");
+  const bandNameY = document.getElementById("band-name-y");
+  const bandNameFontSize = document.getElementById("band-name-font-size");
+  const bandNameColor = $("#band-name-color");
+
 
   const saveButton = document.getElementById('export-to-png');
 
@@ -223,20 +137,105 @@ window.onload = () => {
   checboxLayer6.onchange = (event) => { setCurrentLayer(event, 6); };
 
   saveButton.onclick = exportAsImage;
+
+  canvasRemoved.onmousemove = function (e) {
+      setMousePosition(e);
+      if (isErasing) {
+          rect.width = Math.abs(mouse.x - mouse.startX);
+          rect.height = Math.abs(mouse.y - mouse.startY);
+          rect.startX = (mouse.x - mouse.startX < 0) ? mouse.x : mouse.startX;
+          rect.startY = (mouse.y - mouse.startY < 0) ? mouse.y : mouse.startY;
+          ctxRemoved.clearRect(0, 0, canvasRect.width, canvasRect.height);
+          ctxRemoved.fillRect(rect.startX, rect.startY, rect.width, rect.height);
+          ctxRemoved.fillStyle = 'rgba(225,225,225,0.5)';
+      }
+  }
+
+  canvasRemoved.onclick = function (e) {
+    setMousePosition(e);
+    if (isErasing) {
+        isErasing = false;
+        canvasRemoved.style.cursor = "default";
+        var ctx = currentCanvas.getContext("2d");
+        if (currentCanvas.id !== "canvas1") {
+          ctx.clearRect(rect.startX, rect.startY, rect.width, rect.height);
+        }
+        ctxRemoved.clearRect(0, 0, canvasRect.width, canvasRect.height);
+        rect = { startX: 0, startY: 0, width: 0, height: 0 };
+        mouse = { startX: 0, startY: 0, x: 0, y: 0 };
+    } else {
+        mouse.startX = mouse.x;
+        mouse.startY = mouse.y;
+        isErasing = true;
+        rect = { startX: 0, startY: 0, width: 0, height: 0};
+        canvasRemoved.style.cursor = "crosshair";
+    }
+  }
+
+  albumTitle.onchange = (event) => {
+    const x = albumTitleX;
+    const y = albumTitleY;
+    writeAlbumName(event.target.value, x.value, y.value, albumTitleFontSize.value, albumTitleColor.val());
+  }
+
+  albumTitleX.onchange = (event) => {
+    const y = albumTitleY;
+    writeAlbumName(albumTitle.value, event.target.value, y.value, albumTitleFontSize.value, albumTitleColor.val());
+  }
+
+  albumTitleY.onchange = (event) => {
+    const x = albumTitleX;
+    writeAlbumName(albumTitle.value, x.value,  event.target.value, albumTitleFontSize.value, albumTitleColor());
+  }
+
+  albumTitleFontSize.onchange = (event) => {
+    writeAlbumName(albumTitle.value, albumTitleX.value, albumTitleY.value, event.target.value, albumTitleColor.val());
+  }
+
+  albumTitleColor.change( function() {
+    const newColor = `#${$(this).val()}`;
+    writeAlbumName(albumTitle.value, albumTitleX.value, albumTitleY.value, albumTitleFontSize.value, newColor);
+  });
+
+  bandName.onchange = (event) => {
+    const x = bandNameX;
+    const y = bandNameY;
+    writeBandName(event.target.value, x.value, y.value, bandNameFontSize.value, bandNameColor.val());
+  }
+
+  bandNameX.onchange = (event) => {
+    const y = bandNameY;
+    writeBandName(bandName.value, event.target.value, y.value, bandNameFontSize.value, bandNameColor.val());
+  }
+
+  bandNameY.onchange = (event) => {
+    const x = bandNameX;
+    writeBandName(bandName.value, x.value, event.target.value, bandNameFontSize.value, bandNameColor.val());
+  }
+
+  bandNameFontSize.onchange = (event) => {
+    writeBandName(bandName.value, bandNameX.value, bandNameY.value, event.target.value, bandNameColor.val());
+  }
+
+  bandNameColor.change( function() {
+    const newColor = `#${$(this).val()}`;
+    writeBandName(bandName.value, bandNameX.value, bandNameY.value, bandNameFontSize.value, newColor);
+  });
+
+  document.addEventListener('keydown', function(event) {
+      const key = event.key;
+      if (key === "Escape") {
+        isErasing = false;
+        canvasRemoved.style.cursor = "default";
+        ctxRemoved.clearRect(0, 0, canvasRect.width, canvasRect.height);
+        rect = { startX: 0, startY: 0, width: 0, height: 0 };
+        mouse = { startX: 0, startY: 0, x: 0, y: 0 };
+      }
+  });
+
 }
 
 window.onbeforeunload =  () => {
   init();
 
 }
-
-document.addEventListener('keydown', function(event) {
-    const key = event.key;
-    if (key === "Escape") {
-      isErasing = false;
-      canvasRemoved.style.cursor = "default";
-      ctxRemoved.clearRect(0, 0, canvasRect.width, canvasRect.height);
-      rect = { startX: 0, startY: 0, width: 0, height: 0 };
-      mouse = { startX: 0, startY: 0, x: 0, y: 0 };
-    }
-});
