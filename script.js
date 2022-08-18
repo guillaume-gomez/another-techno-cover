@@ -136,6 +136,7 @@ window.onload = () => {
   checboxLayer5.onchange = (event) => { setCurrentLayer(event, 5); };
   checboxLayer6.onchange = (event) => { setCurrentLayer(event, 6); };
 
+
   saveButton.onclick = exportAsImage;
 
   canvasRemoved.onmousemove = function (e) {
@@ -232,10 +233,6 @@ window.onload = () => {
         mouse = { startX: 0, startY: 0, x: 0, y: 0 };
       }
   });
-
-}
-
-window.onbeforeunload =  () => {
   init();
 
 }
