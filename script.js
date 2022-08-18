@@ -4,28 +4,32 @@ let currentCanvas = document.getElementById('canvas7');
 let ctxRemoved = canvasRemoved.getContext("2d");
 let canvasRect = canvasRemoved.getBoundingClientRect();
 
-var mouse = {
+let mouse = {
   x: 0,
   y: 0,
   startX: 0,
   startY: 0
 };
-var rect = {
+let rect = {
   startX: 0,
   startY: 0,
   width: 0,
   height: 0
 }
 
-var isErasing = false;
+let isErasing = false;
 
 function init() {
   window.scrollTo(0, 0);
+  resizeCanvas();
+}
+
+function resizeCanvas() {
   for(let i = 1; i <= 9; i++) {
     const canvas  = document.getElementById('canvas'+ i);
     const width = canvas.parentElement.clientWidth;
-    canvas.width = width;
-    canvas.height = width;
+    canvas.width = width - 25;
+    canvas.height = width - 25;
 
   }
   ctxRemoved = canvasRemoved.getContext("2d");
@@ -57,14 +61,14 @@ function setCurrentLayer(event, index) {
 
 function exportAsImage() {
   // create a second canvas
-  var destinationCanvas = document.createElement("canvas");
+  const destinationCanvas = document.createElement("canvas");
   destinationCanvas.width = currentCanvas.width;
   destinationCanvas.height = currentCanvas.height;
 
-  var destCtx = destinationCanvas.getContext('2d');
+  const destCtx = destinationCanvas.getContext('2d');
   //draw the original canvas onto the destination canvas
   for(i = 1; i <= 8; ++i) {
-    var canvas = document.getElementById("canvas" + i);
+    const canvas = document.getElementById("canvas" + i);
     destCtx.drawImage(canvas, 0, 0);
   }
 
@@ -73,7 +77,7 @@ function exportAsImage() {
 }
 
 function setMousePosition(e) {
-    var ev = e || window.event; //Moz || IE
+    let ev = e || window.event; //Moz || IE
     if (ev.pageX) { //Moz
         mouse.x = ev.pageX - canvasRect.left;
         mouse.y = ev.pageY - canvasRect.top;
@@ -230,6 +234,10 @@ window.onload = () => {
     const newColor = `#${$(this).val()}`;
     writeBandName(bandName.value, bandNameX.value, bandNameY.value, bandNameFontSize.value, newColor);
   });
+
+  window.onresize = () => {
+    resizeCanvas();
+  }
 
   document.addEventListener('keydown', function(event) {
       const key = event.key;
