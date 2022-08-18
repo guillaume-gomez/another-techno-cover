@@ -7,7 +7,7 @@
 </head>
 <style type="text/css">
   canvas {
-    border: 2px solid #000000;
+    border: 1px solid black;
     position: absolute;
   }
   .jumbotron {
@@ -28,7 +28,7 @@
     </div>
     <div class="container">
       <div class="row">
-        <div class="col-12 col-md-9">
+        <div class="col-12 col-md-9" id="canvasParent">
           <canvas id="canvas1" style="z-index:1"></canvas>
           <canvas id="canvas2" style="z-index:2" ></canvas>
           <canvas id="canvas3" style="z-index:3" ></canvas>
@@ -40,117 +40,121 @@
           <canvas id="canvas9" style="z-index:9" ></canvas>
         </div>
         <div class="col-12 col-md-3">
-          <div class="panel panel-default">
-            <div class="panel-heading">Instructions <i class="fa fa-question-circle"></i></div>
-            <div class="panel-body">
-              <ul class="list-group list-group-flush">
-                <li class="list-group-item">Draw zone to delete layer.</li>
-                <li class="list-group-item">Press escape to reset deleted zone.</li>
-              </ul>
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="file1">First Layer</label>
-            <input type='file' class="form-control-file" id="fileUpload1"/>
-            <div class="form-check">
-              <input type="radio" class="form-check-input" id="layer1" name="erased-layer">
-              <label class="form-check-label">Set as removed layer</label>
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="file2">Second Layer</label>
-            <input type='file' class="form-control-file" id="fileUpload2"/>
-            <div class="form-check">
-              <input type="radio" class="form-check-input" id="layer2" name="erased-layer">
-              <label class="form-check-label">Set as removed layer</label>
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="file3">Third Layer</label>
-            <input type='file' class="form-control-file" id="fileUpload3"/>
-            <div class="form-check">
-              <input type="radio" class="form-check-input" id="layer3" name="erased-layer">
-              <label class="form-check-label">Set as removed layer</label>
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="file4">Fourth Layer</label>
-            <input type='file' class="form-control-file" id="fileUpload4"/>
-            <div class="form-check">
-              <input type="radio" class="form-check-input" id="layer4" name="erased-layer">
-              <label class="form-check-label">Set as removed layer</label>
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="file5">Fifth Layer</label>
-            <input type='file' class="form-control-file" id="fileUpload5"/>
-            <div class="form-check">
-              <input type="radio" class="form-check-input" id="layer5" name="erased-layer">
-              <label class="form-check-label">Set as removed layer</label>
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="file6">Sixth Layer</label>
-            <input type='file' class="form-control-file" id="fileUpload6"/>
-            <div class="form-check">
-              <input type="radio" class="form-check-input" id="layer6" name="erased-layer">
-              <label class="form-check-label">Set as removed layer</label>
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="album-title">Album name</label>
-            <input type='text' class="form-control" id="album-title"/>
-            <div class="row">
-              <div class="col-4">
-                <label for="album-title-x">x</label>
-                <input type="text" class="form-control" id="album-title-x" value="50">
-              </div>
-              <div class="col-4">
-                <label for="album-title-y">y</label>
-                <input type="text" class="form-control" id="album-title-y" value="50">
-              </div>
-              <div class="col-4">
-                <label for="album-title-font-size">font size</label>
-                <input type="text" class="form-control" id="album-title-font-size" value="50">
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-12">
-                <div class="form-group">
-                  <label for="album-title-color">Color</label>
-                  <input id="album-title-color" class="jscolor form-control" value="000000">
+          <div class="card border border-dark rounded-0">
+            <div class="card-body">
+              <div class="panel panel-default">
+                <div class="panel-heading">Instructions <i class="fa fa-question-circle"></i></div>
+                <div class="panel-body">
+                  <ul class="list-group list-group-flush">
+                    <li class="list-group-item">Draw zone to delete layer.</li>
+                    <li class="list-group-item">Press escape to reset deleted zone.</li>
+                  </ul>
                 </div>
               </div>
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="band-name">Band name</label>
-            <input type='text' class="form-control" id="band-name"/>
-            <div class="row">
-              <div class="col-4">
-                <label for="band-name-x">x</label>
-                <input type="text" class="form-control" id="band-name-x" value="50">
-              </div>
-              <div class="col-4">
-                <label for="band-name-y">y</label>
-                <input type="text" class="form-control" id="band-name-y" value="50">
-              </div>
-              <div class="col-4">
-                <label for="band-name-font-size">font size</label>
-                <input type="text" class="form-control" id="band-name-font-size" value="50">
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-12">
-                <div class="form-group">
-                  <label for="band-name-color">Color</label>
-                  <input id="band-name-color" class="jscolor form-control" value="000000">
+              <div class="form-group">
+                <label for="file1">First Layer</label>
+                <input type='file' class="form-control-file" id="fileUpload1"/>
+                <div class="form-check">
+                  <input type="radio" class="form-check-input" id="layer1" name="erased-layer">
+                  <label class="form-check-label">Set as removed layer</label>
                 </div>
               </div>
+              <div class="form-group">
+                <label for="file2">Second Layer</label>
+                <input type='file' class="form-control-file" id="fileUpload2"/>
+                <div class="form-check">
+                  <input type="radio" class="form-check-input" id="layer2" name="erased-layer">
+                  <label class="form-check-label">Set as removed layer</label>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="file3">Third Layer</label>
+                <input type='file' class="form-control-file" id="fileUpload3"/>
+                <div class="form-check">
+                  <input type="radio" class="form-check-input" id="layer3" name="erased-layer">
+                  <label class="form-check-label">Set as removed layer</label>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="file4">Fourth Layer</label>
+                <input type='file' class="form-control-file" id="fileUpload4"/>
+                <div class="form-check">
+                  <input type="radio" class="form-check-input" id="layer4" name="erased-layer">
+                  <label class="form-check-label">Set as removed layer</label>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="file5">Fifth Layer</label>
+                <input type='file' class="form-control-file" id="fileUpload5"/>
+                <div class="form-check">
+                  <input type="radio" class="form-check-input" id="layer5" name="erased-layer">
+                  <label class="form-check-label">Set as removed layer</label>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="file6">Sixth Layer</label>
+                <input type='file' class="form-control-file" id="fileUpload6"/>
+                <div class="form-check">
+                  <input type="radio" class="form-check-input" id="layer6" name="erased-layer">
+                  <label class="form-check-label">Set as removed layer</label>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="album-title">Album name</label>
+                <input type='text' class="form-control" id="album-title"/>
+                <div class="row">
+                  <div class="col-4">
+                    <label for="album-title-x">x</label>
+                    <input type="text" class="form-control" id="album-title-x" value="50">
+                  </div>
+                  <div class="col-4">
+                    <label for="album-title-y">y</label>
+                    <input type="text" class="form-control" id="album-title-y" value="50">
+                  </div>
+                  <div class="col-4">
+                    <label for="album-title-font-size">font size</label>
+                    <input type="text" class="form-control" id="album-title-font-size" value="50">
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-12">
+                    <div class="form-group">
+                      <label for="album-title-color">Color</label>
+                      <input id="album-title-color" class="jscolor form-control" value="000000">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="band-name">Band name</label>
+                <input type='text' class="form-control" id="band-name"/>
+                <div class="row">
+                  <div class="col-4">
+                    <label for="band-name-x">x</label>
+                    <input type="text" class="form-control" id="band-name-x" value="50">
+                  </div>
+                  <div class="col-4">
+                    <label for="band-name-y">y</label>
+                    <input type="text" class="form-control" id="band-name-y" value="50">
+                  </div>
+                  <div class="col-4">
+                    <label for="band-name-font-size">font size</label>
+                    <input type="text" class="form-control" id="band-name-font-size" value="50">
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-12">
+                    <div class="form-group">
+                      <label for="band-name-color">Color</label>
+                      <input id="band-name-color" class="jscolor form-control" value="000000">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <button class="btn btn-dark" id="export-to-png">Export to png</button>
+              </div>
             </div>
-          </div>
-          <div class="form-group">
-            <button class="btn btn-dark" id="export-to-png">Export to png</button>
           </div>
         </div>
       </div>

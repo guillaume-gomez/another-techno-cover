@@ -22,6 +22,7 @@ let isErasing = false;
 function init() {
   window.scrollTo(0, 0);
   resizeCanvas();
+  resizeCanvasParent();
 }
 
 function resizeCanvas() {
@@ -34,6 +35,11 @@ function resizeCanvas() {
   }
   ctxRemoved = canvasRemoved.getContext("2d");
   canvasRect = canvasRemoved.getBoundingClientRect();
+}
+
+function resizeCanvasParent() {
+  const canvasParent = document.getElementById("canvasParent");
+  canvasParent.style.minHeight = `${currentCanvas.height + 25}px`;
 }
 
 function readImage(event, index) {
@@ -237,6 +243,7 @@ window.onload = () => {
 
   window.onresize = () => {
     resizeCanvas();
+    resizeCanvasParent();
   }
 
   document.addEventListener('keydown', function(event) {
