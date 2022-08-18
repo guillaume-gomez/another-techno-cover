@@ -1,14 +1,8 @@
 // attributes
-var canvasRemoved  = document.getElementById('canvas9');
-var currentCanvas = document.getElementById('canvas7');
-var ctxRemoved = canvasRemoved.getContext("2d");
-var canvasRect = canvasRemoved.getBoundingClientRect();
-
-var albumTitle = document.getElementById("album-title");
-var albumTitleX = document.getElementById("album-title-x");
-var albumTitleY = document.getElementById("album-title-y");
-var albumTitleFontSize = document.getElementById("album-title-font-size");
-var albumTitleColor = $("#album-title-color");
+let canvasRemoved  = document.getElementById('canvas9');
+let currentCanvas = document.getElementById('canvas7');
+let ctxRemoved = canvasRemoved.getContext("2d");
+let canvasRect = canvasRemoved.getBoundingClientRect();
 
 var mouse = {
   x: 0,
@@ -27,6 +21,15 @@ var isErasing = false;
 
 function init() {
   window.scrollTo(0, 0);
+  for(let i = 1; i <= 9; i++) {
+    const canvas  = document.getElementById('canvas'+ i);
+    const width = canvas.parentElement.clientWidth;
+    canvas.width = width;
+    canvas.height = width;
+
+  }
+  ctxRemoved = canvasRemoved.getContext("2d");
+  canvasRect = canvasRemoved.getBoundingClientRect();
 }
 
 function readImage(event, index) {
@@ -119,6 +122,12 @@ window.onload = () => {
   const bandNameColor = $("#band-name-color");
 
 
+  const albumTitle = document.getElementById("album-title");
+  const albumTitleX = document.getElementById("album-title-x");
+  const albumTitleY = document.getElementById("album-title-y");
+  const albumTitleFontSize = document.getElementById("album-title-font-size");
+  const albumTitleColor = $("#album-title-color");
+
   const saveButton = document.getElementById('export-to-png');
 
 
@@ -135,7 +144,6 @@ window.onload = () => {
   checboxLayer4.onchange = (event) => { setCurrentLayer(event, 4); };
   checboxLayer5.onchange = (event) => { setCurrentLayer(event, 5); };
   checboxLayer6.onchange = (event) => { setCurrentLayer(event, 6); };
-
 
   saveButton.onclick = exportAsImage;
 
