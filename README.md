@@ -6,4 +6,4 @@ The purpose of this repository is to recreate typical techno album cover (severa
 
 ## Web version
 
-[Test Online](https://guillaume-gomez.github.io/another-techno-cover)
+[Try by yourself](https://guillaume-gomez.github.io/another-techno-cover)
